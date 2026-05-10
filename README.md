@@ -96,8 +96,6 @@ Các Controller không biết nhau, giao tiếp qua event
 // Duyệt toàn bộ slot Ready, chọn slot có Profit lớn nhất
 ```
 
-**ScriptableObject read-only** — toàn bộ field là `[SerializeField] private` với getter only, tránh bị ghi đè khi build APK.
-
 **Event-driven dispatch** — không dùng polling trong Update để tìm worker/customer rảnh, thay vào đó dùng event `OnSlotReady`, `OnCustomerWaiting`, `OnWorkerIdle` để trigger đúng lúc cần.
 
 ---
