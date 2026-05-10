@@ -1,5 +1,5 @@
 # Idle Farm — Unity Demo
-**Unity 2021.3.x LTS**
+**Unity 2022.3.x LTS**
 
 ---
 
