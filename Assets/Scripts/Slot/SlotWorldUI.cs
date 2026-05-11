@@ -10,34 +10,26 @@ namespace Assembly_CSharp.Assets.Scripts.Slot
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI profitText;
 
-        private BaseSlot _slot;
+        private SlotData _data;
 
-        public void Setup(BaseSlot slot)
+        public void Setup(SlotData data)
         {
-            _slot = slot;
+            _data = data;
             uiRoot.SetActive(false);
         }
 
         public void Show()
         {
             uiRoot.SetActive(true);
-            Refresh();
+            Refresh(_data);
         }
 
-        public void Refresh()
+        public void Refresh(SlotData data)
         {
-            if (_slot == null) return;
-            if (_slot.Config.icon != null)
-                icon.sprite = _slot.Config.icon;
-            profitText.text = _slot.Profit.ToString();
-        }
-
-        private string FormatNumber(double n)
-        {
-            if (n >= 1_000_000_000) return $"{n / 1_000_000_000:0.#}B";
-            if (n >= 1_000_000) return $"{n / 1_000_000:0.#}M";
-            if (n >= 1_000) return $"{n / 1_000:0.#}k";
-            return n.ToString("0");
+            if (data == null) return;
+            if (icon != null && data.Config.Icon != null)
+                icon.sprite = data.Config.Icon;
+            profitText.text = data.Profit.ToString();
         }
     }
 }

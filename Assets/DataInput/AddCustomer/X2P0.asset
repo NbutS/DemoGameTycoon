@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 001dfdc433f2882478c9606246c7a254, type: 3}
-  m_Name: X2 Slot All
+  m_Script: {fileID: 11500000, guid: 1392c2f474fd4104b9cc335aee2a92c8, type: 3}
+  m_Name: X2P0
   m_EditorClassIdentifier: 
-  displayName: x2 Global profit
-  description: x2 Global profit
-  cost: 10000000
-  upgradeType: 3
-  slotIndex: 0
+  _displayName: X2 profit slot 0
+  _description: X2 profit slot 0
+  _cost: 10000
+  _actionAsset: {fileID: 11400000, guid: 4311421193a73db47aa0d488af28489b, type: 2}

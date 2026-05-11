@@ -6,24 +6,20 @@ namespace Assembly_CSharp.Assets.Scripts.Currency
 
     public class CurrencyManager : MonoBehaviour
     {
-        [SerializeField ] TopUIController topUIController;
         public static CurrencyManager Instance { get; private set; }
 
-        private BigNumber _coins = new BigNumber(10, 6);
+        private BigNumber _coins = BigNumber.FromDouble(200000);
         public BigNumber Coins => _coins;
 
         public event Action<BigNumber> OnCoinChanged;
 
-        private void Awake()
-        {
-            Instance = this;
-            topUIController.OnInit();
-        }
+        private void Awake() => Instance = this;
 
         public bool CanAfford(BigNumber amount) => _coins >= amount;
 
         public void AddCoins(BigNumber amount)
         {
+            if (amount <= BigNumber.Zero) return;
             _coins = _coins + amount;
             OnCoinChanged?.Invoke(_coins);
         }

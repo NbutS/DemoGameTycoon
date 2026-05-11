@@ -1,14 +1,24 @@
+using Assembly_CSharp.Assets.Scripts.Manager;
 using UnityEngine;
 
 namespace Assembly_CSharp.Assets.Scripts.Ui.Popup
 {
-    public abstract class UpgradeOptionConfig : ScriptableObject
+    [CreateAssetMenu(menuName = "IdleFarm/UpgradeOptionConfig")]
+    public class UpgradeOptionConfig : ScriptableObject
     {
-        public string displayName;
-        public string description;
-        public double cost;
-        public UpgradeOptionType upgradeType;
-        public int slotIndex;
+        [SerializeField] private string _displayName;
+        [SerializeField] private string _description;
+        [SerializeField] private double _cost;
+        [SerializeField] private ScriptableObject _actionAsset;
 
+        public string DisplayName => _displayName;
+        public string Description => _description;
+        public double Cost => _cost;
+
+        public IUpgradeAction GetAction() => _actionAsset as IUpgradeAction;
+    }
+    public interface IUpgradeAction
+    {
+        void Execute(GameController gameController);
     }
 }

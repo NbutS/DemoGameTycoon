@@ -5,10 +5,11 @@ namespace Assembly_CSharp.Assets.Scripts.Currency
     [Serializable]
     public struct BigNumber
     {
-        private double _mantissa;   
-        private int _exponent;  
+        private double _mantissa;
+        private int _exponent;
 
         public static readonly BigNumber Zero = new BigNumber(0, 0);
+        public static readonly BigNumber One = new BigNumber(1, 0);
 
         public BigNumber(double mantissa, int exponent)
         {
@@ -17,68 +18,85 @@ namespace Assembly_CSharp.Assets.Scripts.Currency
             Normalize();
         }
 
-        // Tạo từ double thông thường
         public static BigNumber FromDouble(double value)
         {
             if (value == 0) return Zero;
+            if (double.IsInfinity(value) || double.IsNaN(value)) return Zero;
+
             int exp = (int)Math.Floor(Math.Log10(Math.Abs(value)));
-            return new BigNumber(value / Math.Pow(10, exp), exp);
+            double mantissa = value;
+
+            if (exp > 0)
+                for (int i = 0; i < exp; i++) mantissa /= 10.0;
+            else
+                for (int i = 0; i < -exp; i++) mantissa *= 10.0;
+
+            return new BigNumber(mantissa, exp);
         }
 
         private void Normalize()
         {
             if (_mantissa == 0) { _exponent = 0; return; }
 
-            while (Math.Abs(_mantissa) >= 10)
+            while (Math.Abs(_mantissa) >= 10.0)
             {
-                _mantissa /= 10;
+                _mantissa /= 10.0;
                 _exponent++;
             }
-            while (Math.Abs(_mantissa) < 1 && _mantissa != 0)
+            while (Math.Abs(_mantissa) < 1.0 && _mantissa != 0)
             {
-                _mantissa *= 10;
+                _mantissa *= 10.0;
                 _exponent--;
             }
         }
 
-        // ─── Operators ────────────────────────────────────────────────────────────
         public static BigNumber operator +(BigNumber a, BigNumber b)
         {
-            if (a._exponent > b._exponent)
+            if (a._exponent >= b._exponent)
             {
-                double bAdj = b._mantissa * Math.Pow(10, b._exponent - a._exponent);
+                int diff = a._exponent - b._exponent;
+                double bAdj = b._mantissa;
+                for (int i = 0; i < diff; i++) bAdj /= 10.0;
                 return new BigNumber(a._mantissa + bAdj, a._exponent);
             }
             else
             {
-                double aAdj = a._mantissa * Math.Pow(10, a._exponent - b._exponent);
+                int diff = b._exponent - a._exponent;
+                double aAdj = a._mantissa;
+                for (int i = 0; i < diff; i++) aAdj /= 10.0;
                 return new BigNumber(aAdj + b._mantissa, b._exponent);
             }
         }
 
         public static BigNumber operator -(BigNumber a, BigNumber b)
         {
-            if (a._exponent > b._exponent)
+            if (a._exponent >= b._exponent)
             {
-                double bAdj = b._mantissa * Math.Pow(10, b._exponent - a._exponent);
+                int diff = a._exponent - b._exponent;
+                double bAdj = b._mantissa;
+                for (int i = 0; i < diff; i++) bAdj /= 10.0;
                 return new BigNumber(a._mantissa - bAdj, a._exponent);
             }
             else
             {
-                double aAdj = a._mantissa * Math.Pow(10, a._exponent - b._exponent);
+                int diff = b._exponent - a._exponent;
+                double aAdj = a._mantissa;
+                for (int i = 0; i < diff; i++) aAdj /= 10.0;
                 return new BigNumber(aAdj - b._mantissa, b._exponent);
             }
         }
 
-        public static BigNumber operator *(BigNumber a, double multiplier)
-        {
-            return new BigNumber(a._mantissa * multiplier, a._exponent);
-        }
-
         public static BigNumber operator *(BigNumber a, BigNumber b)
-        {
-            return new BigNumber(a._mantissa * b._mantissa, a._exponent + b._exponent);
-        }
+            => new BigNumber(a._mantissa * b._mantissa, a._exponent + b._exponent);
+
+        public static BigNumber operator *(BigNumber a, double multiplier)
+            => new BigNumber(a._mantissa * multiplier, a._exponent);
+
+        public static BigNumber operator *(double multiplier, BigNumber a)
+            => a * multiplier;
+
+        public static BigNumber operator /(BigNumber a, double divisor)
+            => new BigNumber(a._mantissa / divisor, a._exponent);
 
         public static bool operator >=(BigNumber a, BigNumber b)
         {
@@ -87,29 +105,28 @@ namespace Assembly_CSharp.Assets.Scripts.Currency
         }
 
         public static bool operator <=(BigNumber a, BigNumber b) => b >= a;
+
         public static bool operator >(BigNumber a, BigNumber b)
         {
             if (a._exponent != b._exponent) return a._exponent > b._exponent;
             return a._mantissa > b._mantissa;
         }
+
         public static bool operator <(BigNumber a, BigNumber b) => b > a;
 
-        public static implicit operator BigNumber(double value) => FromDouble(value);
-        public static implicit operator BigNumber(int value) => FromDouble(value);
+        public static bool operator ==(BigNumber a, BigNumber b)
+            => a._exponent == b._exponent && Math.Abs(a._mantissa - b._mantissa) < 1e-9;
 
-        // ─── Format ───────────────────────────────────────────────────────────────
-        public override string ToString()
-        {
-            if (_exponent < 3) return $"{_mantissa * Math.Pow(10, _exponent):0}";
-            if (_exponent < 6) return $"{_mantissa * Math.Pow(10, _exponent - 3):0.#}k";
-            if (_exponent < 9) return $"{_mantissa * Math.Pow(10, _exponent - 6):0.#}M";
-            if (_exponent < 12) return $"{_mantissa * Math.Pow(10, _exponent - 9):0.#}B";
-            if (_exponent < 15) return $"{_mantissa * Math.Pow(10, _exponent - 12):0.#}T";
+        public static bool operator !=(BigNumber a, BigNumber b) => !(a == b);
 
-            // Số rất lớn dùng ký hiệu khoa học: 1.23e15
-            return $"{_mantissa:0.##}e{_exponent}";
-        }
+        public override bool Equals(object obj) => obj is BigNumber b && this == b;
+        public override int GetHashCode() => HashCode.Combine(_mantissa, _exponent);
 
-        public double ToDouble() => _mantissa * Math.Pow(10, _exponent);
+        public static implicit operator BigNumber(double v) => FromDouble(v);
+        public static implicit operator BigNumber(int v) => FromDouble(v);
+
+        public override string ToString() => BigNumberFormatter.Format(this);
+
+        public (double mantissa, int exponent) Raw => (_mantissa, _exponent);
     }
 }

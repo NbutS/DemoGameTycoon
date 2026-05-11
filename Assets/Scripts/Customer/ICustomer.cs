@@ -7,13 +7,13 @@ namespace Assembly_CSharp.Assets.Scripts.Customer
         void OnInit(CounterSlotManager counterSlotManager, Vector3 spawnPosition, Vector3 endPosition);
         void OnUpdate();
     }
-    public enum CustomerStateType
-    {
-        None,
-        Idle,
-        MovingToCounter,
-        Waiting,
-        ReceiveGood,
-        MoveOut,
-    }
+    // public enum CustomerStateType
+    // {
+    //     None,
+    //     Idle,
+    //     MovingToCounter,
+    //     Waiting,
+    //     ReceiveGood,
+    //     MoveOut,
+    // }
 }

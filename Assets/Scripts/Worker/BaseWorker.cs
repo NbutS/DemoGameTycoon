@@ -7,35 +7,43 @@ using Assembly_CSharp.Assets.Scripts.Customer;
 using Assembly_CSharp.Assets.Scripts.Currency;
 using Assembly_CSharp.Assets.Scripts.Worker;
 using System;
+using Assembly_CSharp.Assets.Scripts.Manager;
 
 namespace Scripts.Worker
 {
-    public class BaseWorker : MonoBehaviour, IWorker
+    public class BaseWorker : MonoBehaviour, IInitializable, IUpdatable, IMovable, IDispatchable
     {
         [SerializeField] private NavMeshAgent agent;
-        [SerializeField] private Animator animator;
+        [SerializeField] private WorkerAnimatorController workerAnimator;
         [SerializeField] private List<GameObject> listApples;
 
         private Vector3 _homePosition;
-        private WorkerState _workerState = WorkerState.Idle;
+        private WorkerStateMachine _stateMachine;
         private OrderDat _orderDat;
         private BigNumber _carrying;
+        private CurrencyManager _currencyManager;
+
         public event Action<BaseWorker> OnBecameIdle;
 
+        public void OnInit() { }
 
-        public void WarpTo(Vector3 position)
-        {
-            agent.Warp(position);
-        }
-
-        public virtual void OnInit(CounterSlotManager counterSlotManager, Vector3 homePos)
+        public void Init(CounterSlotManager counterSlotManager, Vector3 homePos, CurrencyManager currencyManager)
         {
             _homePosition = homePos;
+            _currencyManager = currencyManager;
+            _stateMachine = new WorkerStateMachine();
+
+            _stateMachine.OnStateChanged += OnStateChanged;
+
             foreach (var apple in listApples)
                 apple.SetActive(false);
         }
 
-        public virtual void OnUpdate() { }
+        public void OnUpdate() { }
+
+        public void WarpTo(Vector3 position) => agent.Warp(position);
+
+        public Vector3 GetStandPoint() => transform.position;
 
         public void OnGenerateOrder(BaseSlot slot, BaseCustomer customer, Vector3 deliveryPoint)
         {
@@ -45,30 +53,29 @@ namespace Scripts.Worker
                 BaseCustomer = customer,
                 DeliveryPoint = deliveryPoint,
             };
-            SetState(WorkerState.MovingToSlot);
+            _stateMachine.ChangeState(WorkerState.MovingToSlot);
         }
 
-        private void SetState(WorkerState newState)
-        {
-            _workerState = newState;
+        public WorkerState GetWorkerState() => _stateMachine.GetState();
 
-            switch (_workerState)
+        private void OnStateChanged(WorkerState state)
+        {
+            workerAnimator.OnStateChanged(state);
+
+            switch (state)
             {
                 case WorkerState.Idle:
                     _orderDat = null;
-                    _carrying = 0;
+                    _carrying = BigNumber.Zero;
                     StartCoroutine(ReturnHomeRoutine());
                     break;
                 case WorkerState.MovingToSlot:
-                    animator.Play("Move");
                     StartCoroutine(MoveToSlotRoutine());
                     break;
                 case WorkerState.Harvesting:
-                    animator.Play("CarryIdle");
                     StartCoroutine(HarvestRoutine());
                     break;
                 case WorkerState.MovingToCustomer:
-                    animator.Play("CarryMove");
                     StartCoroutine(MoveToCustomerRoutine());
                     break;
                 case WorkerState.Delivering:
@@ -79,39 +86,36 @@ namespace Scripts.Worker
 
         IEnumerator ReturnHomeRoutine()
         {
-            animator.Play("Move");
             agent.SetDestination(_homePosition);
             yield return new WaitUntil(HasArrived);
-            animator.Play("Idle"); 
-            yield return null;  
-            OnBecameIdle?.Invoke(this);  
+            workerAnimator.PlayIdle();
+            yield return null;
+            OnBecameIdle?.Invoke(this);
         }
 
         IEnumerator MoveToSlotRoutine()
         {
             agent.SetDestination(_orderDat.BaseSlot.GetStandPoint());
             yield return new WaitUntil(HasArrived);
-            SetState(WorkerState.Harvesting);
+            _stateMachine.ChangeState(WorkerState.Harvesting);
         }
 
         IEnumerator HarvestRoutine()
         {
-           _carrying = _orderDat.BaseSlot.OnHarvest();
-
+            _carrying = _orderDat.BaseSlot.OnHarvest();
             foreach (var apple in listApples)
             {
                 apple.SetActive(true);
                 yield return new WaitForSeconds(0.2f);
             }
-
-            SetState(WorkerState.MovingToCustomer);
+            _stateMachine.ChangeState(WorkerState.MovingToCustomer);
         }
 
         IEnumerator MoveToCustomerRoutine()
         {
             if (_orderDat.DeliveryPoint == Vector3.zero)
             {
-                SetState(WorkerState.Idle);
+                _stateMachine.ChangeState(WorkerState.Idle);
                 yield break;
             }
 
@@ -125,7 +129,7 @@ namespace Scripts.Worker
                 return HasArrived();
             });
 
-            SetState(WorkerState.Delivering);
+            _stateMachine.ChangeState(WorkerState.Delivering);
         }
 
         IEnumerator DeliverRoutine()
@@ -136,8 +140,8 @@ namespace Scripts.Worker
             _orderDat.BaseCustomer.OnReceiveGoods();
             yield return new WaitForSeconds(0.5f);
 
-            CurrencyManager.Instance.AddCoins(_carrying);
-            SetState(WorkerState.Idle);
+            _currencyManager.AddCoins(_carrying);
+            _stateMachine.ChangeState(WorkerState.Idle);
         }
 
         private bool HasArrived()
@@ -145,7 +149,5 @@ namespace Scripts.Worker
             if (agent.pathPending) return false;
             return agent.remainingDistance <= agent.stoppingDistance;
         }
-
-        public WorkerState GetWorkerState() => _workerState;
     }
 }

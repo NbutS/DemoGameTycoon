@@ -13,12 +13,14 @@ namespace Assembly_CSharp.Assets.Scripts.Ui.Popup
         [SerializeField] private TextMeshProUGUI costText;
         [SerializeField] private Button buyButton;
         [SerializeField] private UpgradeOptionConfig config;
+
         private BigNumber _currentCost;
+
         public void OnInit()
         {
-            _currentCost = BigNumber.FromDouble(config.cost);
-            nameText.text = config.displayName;
-            descText.text = config.description;
+            _currentCost = BigNumber.FromDouble(config.Cost);
+            nameText.text = config.DisplayName;
+            descText.text = config.Description;
             RefreshCost();
             buyButton.onClick.RemoveAllListeners();
             buyButton.onClick.AddListener(OnBuyClicked);
@@ -26,44 +28,20 @@ namespace Assembly_CSharp.Assets.Scripts.Ui.Popup
 
         private void OnBuyClicked()
         {
-            if (!CurrencyManager.Instance.SpendCoins(_currentCost))
+            if (!GameController.Instance.CurrencyManager.SpendCoins(_currentCost))
             {
-                PopupManager.Instance.Get<NotEnoughCoinPopup>(PopupType.NotEnoughCoin).Setup();
+                GameController.Instance.PopupManager
+                    .Get<NotEnoughCoinPopup>(PopupType.NotEnoughCoin)
+                    .Setup();
                 return;
             }
-            Execute();
+
+            config.GetAction()?.Execute(GameController.Instance);
             _currentCost = _currentCost * 2.0;
             RefreshCost();
         }
 
-        private void Execute()
-        {
-            switch (config.upgradeType)
-            {
-                case UpgradeOptionType.AddCustomer:
-                    GameController.Instance.CustomerController.AddCustomer();
-                    break;
-                case UpgradeOptionType.AddWorker:
-                    GameController.Instance.WorkerController.AddWorker();
-                    break;
-                case UpgradeOptionType.X2SlotProfit:
-                    GameController.Instance.SlotController.X2SlotProfit(config.slotIndex);
-                    break;
-                case UpgradeOptionType.X2GlobalProfit:
-                    GameController.Instance.SlotController.X2GlobalProfit();
-                    break;
-            }
-        }
-
         private void RefreshCost() => costText.text = _currentCost.ToString();
-
-        private string FormatNumber(double n)
-        {
-            if (n >= 1_000_000_000) return $"{n / 1_000_000_000:0.#}B";
-            if (n >= 1_000_000) return $"{n / 1_000_000:0.#}M";
-            if (n >= 1_000) return $"{n / 1_000:0.#}k";
-            return n.ToString("0");
-        }
     }
     public enum UpgradeOptionType
     {

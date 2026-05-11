@@ -4,6 +4,7 @@ using UnityEngine;
 using Assembly_CSharp.Assets.Scripts.Customer;
 using Assembly_CSharp.Assets.Scripts.Ui.Popup;
 using Assembly_CSharp.Assets.Scripts.Currency;
+using Assembly_CSharp.Assets.Scripts.Manager;
 
 namespace Assembly_CSharp.Assets.Scripts.Slot
 {
@@ -14,12 +15,12 @@ namespace Assembly_CSharp.Assets.Scripts.Slot
 
         public event Action<BaseSlot> OnSlotReady;
 
-        public void OnInit()
+        public void OnInit(CurrencyManager currencyManager, PopupManager popupManager)
         {
             for (int i = 0; i < slots.Count; i++)
             {
                 var slot = slots[i];
-                slot.Setup(slotConfigs[i]);
+                slot.Setup(slotConfigs[i], currencyManager, popupManager);
                 slot.OnInit();
                 slot.OnBecameReady += () => OnSlotReady?.Invoke(slot);
             }
@@ -38,9 +39,7 @@ namespace Assembly_CSharp.Assets.Scripts.Slot
 
             foreach (var slot in slots)
             {
-                if (slot.GetSlotState() != SlotStateType.Ready) continue;
-                if (slot.IsTargeted) continue;
-
+                if (!slot.IsReady || slot.IsTargeted) continue;
                 if (best == null || slot.Profit > bestProfit)
                 {
                     bestProfit = slot.Profit;
@@ -50,16 +49,23 @@ namespace Assembly_CSharp.Assets.Scripts.Slot
 
             return best;
         }
-        public void X2GlobalProfit()
-        {
-            foreach (var slot in slots)
-                slot.X2Profit();
-        }
 
         public BaseSlot GetSlotByIndex(int index) =>
-            slots.Find(s => s.Config.slotIndex == index);
+            slots.Find(s => s.Config != null && s.Config.SlotIndex == index);
 
-        public void X2SlotProfit(int index) =>
-            GetSlotByIndex(index)?.X2Profit();
+        public void X2SlotProfit(int index)
+        {
+            GetSlotByIndex(index)?.ApplyModifier(
+                new StatModifier(ModifierType.Multiply, 2.0, $"x2_slot_{index}_{Guid.NewGuid()}")
+            );
+        }
+
+        public void X2GlobalProfit()
+        {
+            string source = $"x2_global_{Guid.NewGuid()}";
+            foreach (var slot in slots)
+                slot.ApplyModifier(new StatModifier(ModifierType.Multiply, 2.0, source));
+        }
     }
+
 }

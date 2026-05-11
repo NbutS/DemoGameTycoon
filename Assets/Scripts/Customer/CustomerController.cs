@@ -32,7 +32,7 @@ namespace Assembly_CSharp.Assets.Scripts.Customer
             Vector3 endPos = counterSlotManager.GetCustomerEndPoint(index);
 
             customer.WarpTo(spawnPos);
-            customer.OnInit(counterSlotManager, spawnPos, endPos);
+            customer.Init(counterSlotManager, spawnPos, endPos);
             customer.OnBecameWaiting += OnCustomerBecameWaiting;
         }
 
@@ -56,10 +56,9 @@ namespace Assembly_CSharp.Assets.Scripts.Customer
             if (customers.Count >= 4) return;
 
             int index = customers.Count;
-
             Vector3 offscreen = new Vector3(9999f, 0f, 9999f);
-            var newCustomer = Instantiate(customerPrefab, offscreen, Quaternion.identity, customerParent);
 
+            var newCustomer = Instantiate(customerPrefab, offscreen, Quaternion.identity, customerParent);
             InitCustomer(newCustomer, index);
             customers.Add(newCustomer);
             newCustomer.MoveToCounter();

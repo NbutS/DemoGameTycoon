@@ -8,13 +8,4 @@ namespace Assembly_CSharp.Assets.Scripts.Slot
         void ChangeState(SlotStateType treeType);
     }
 
-    public enum SlotStateType
-    {
-        None,
-        Close,
-        Opening,
-        Ready,
-        NotReady,
-        NotAvailable,
-    }
 }

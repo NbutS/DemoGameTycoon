@@ -21,7 +21,7 @@ ProjectAssetsFile=<PATH>Temp/obj/Debug/Assembly-CSharp/project.assets.json
 RootNamespace=
 RunAnalyzers=
 RunAnalyzersDuringLiveAnalysis=
-SolutionPath=<PATH>TestUnimob.sln
+SolutionPath=<PATH>DemoGameTycoon.sln
 TargetFrameworkIdentifier=.NETStandard
 TargetPath=<PATH>Temp/bin/Debug/Assembly-CSharp.dll
 TargetRefPath=
@@ -53,40 +53,50 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 [sourceFiles]
 Assets/Scripts/Currency/
  BigNumber.cs
+ BigNumberFormatter.cs
  CurrencyManager.cs
 Assets/Scripts/Customer/
  BaseCustomer.cs
  CounterSlotManager.cs
+ CustomerAnimatorController.cs
  CustomerController.cs
+ CustomerCore.cs
  ICustomer.cs
-Assets/Scripts/
- Manager/GameController.cs
- Slot/
-  BaseSlot.cs
-  BoxElement.cs
-  ISlot.cs
-  SlotController.cs
-  SlotWorldUI.cs
-  TreeElement.cs
- Ui/Popup/
-  AddCustomerUpgrade.cs
-  AddWorkerUpgrade.cs
-  BasePopup.cs
-  GlobalUpgradePopup.cs
-  NotEnoughCoinPopup.cs
-  PopupManager.cs
-  SlotConfig.cs
-  TopUIController.cs
-  UnlockSlotPopup.cs
-  UpgradeOptionConfig.cs
-  UpgradeOptionView.cs
-  UpgradeSlotPopup.cs
-  X2SlotProfitUpgrade.cs
- Worker/
-  BaseWorker.cs
-  IWorker.cs
-  OrderDat.cs
-  WorkerController.cs
+Assets/Scripts/Manager/
+ GameController.cs
+ interfaces.cs
+ StatValue.cs
+Assets/Scripts/Slot/
+ BaseSlot.cs
+ BoxElement.cs
+ ISlot.cs
+ SlotController.cs
+ SlotCore.cs
+ SlotView.cs
+ SlotWorldUI.cs
+ TreeElement.cs
+Assets/Scripts/Ui/Popup/
+ AddCustomerAction.cs
+ AddWorkerAction.cs
+ BasePopup.cs
+ GlobalUpgradePopup.cs
+ NotEnoughCoinPopup.cs
+ PopupManager.cs
+ SlotConfig.cs
+ TopUIController.cs
+ UnlockSlotPopup.cs
+ UpgradeOptionConfig.cs
+ UpgradeOptionView.cs
+ UpgradeSlotPopup.cs
+ X2GlobalProfitAction.cs
+ X2SlotProfitAction.cs
+Assets/Scripts/Worker/
+ BaseWorker.cs
+ IWorker.cs
+ OrderDat.cs
+ WorkerAnimatorController.cs
+ WorkerController.cs
+ WorkerCore.cs
 Temp/obj/Debug/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 
 [metadataReferences]

@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 192d7182df3d5f64a92d8dc007697537, type: 3}
-  m_Name: SlotConfig1
+  m_Script: {fileID: 11500000, guid: 4098ab6880c376a4092adeafd5f215fd, type: 3}
+  m_Name: SlotConfig 3
   m_EditorClassIdentifier: 
-  slotIndex: 0
-  unlockCost: 100
+  slotIndex: 3
+  icon: {fileID: 21300000, guid: b506a3b43045c0b49ad14f0339fb6956, type: 3}
+  unlockCost: 10000
   baseProfit: 1000
   cooldownDuration: 1
-  upgradeCost: 500
-  upgradeProfitMultiplier: 1.5
-  icon: {fileID: 21300000, guid: 40ac2c9f66ad60340ae5ae80eeff9656, type: 3}
+  upgradeCost: 200
+  upgradeProfitMultiplier: 1.1

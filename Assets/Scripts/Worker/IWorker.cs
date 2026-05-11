@@ -8,14 +8,14 @@ public interface IWorker
     void OnUpdate();
 }
 
-public enum WorkerState
-{
-    None,
-    Idle,
-    MovingToSlot,
-    Harvesting,
-    MovingToCustomer,
-    Delivering,
+// public enum WorkerState
+// {
+//     None,
+//     Idle,
+//     MovingToSlot,
+//     Harvesting,
+//     MovingToCustomer,
+//     Delivering,
 
     
-}
+// }

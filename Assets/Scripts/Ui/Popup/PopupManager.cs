@@ -5,8 +5,6 @@ namespace Assembly_CSharp.Assets.Scripts.Ui.Popup
 {
     public class PopupManager : MonoBehaviour
     {
-        public static PopupManager Instance { get; private set; }
-
         [SerializeField] private List<PopupEntry> popupEntries;
 
         [System.Serializable]
@@ -19,9 +17,8 @@ namespace Assembly_CSharp.Assets.Scripts.Ui.Popup
         private Dictionary<PopupType, BasePopup> _popups = new();
         private BasePopup _current;
 
-        private void Awake()
+        public void OnInit()
         {
-            Instance = this;
             foreach (var entry in popupEntries)
             {
                 entry.popup.OnInit();
@@ -47,11 +44,6 @@ namespace Assembly_CSharp.Assets.Scripts.Ui.Popup
         {
             if (_popups.TryGetValue(type, out var popup))
                 popup.Hide();
-        }
-
-        public void OnOpenGlobalUpgrade()
-        {
-            Get<GlobalUpgradePopup>(PopupType.GlobalUpgrade).Setup();
         }
     }
 }

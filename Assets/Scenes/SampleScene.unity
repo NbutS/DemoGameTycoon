@@ -482,6 +482,17 @@ MonoBehaviour:
   - {fileID: 2053424139}
   - {fileID: 306600264}
   - {fileID: 565084173}
+--- !u!114 &44351544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5206696558566667416, guid: cfcea1bef252c491e8f667d61a07da44, type: 3}
+  m_PrefabInstance: {fileID: 44351537}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44351542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b560f241d65704592bdb1fd7208820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &50824704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,6 +1707,7 @@ GameObject:
   - component: {fileID: 379094746}
   - component: {fileID: 379094745}
   - component: {fileID: 379094743}
+  - component: {fileID: 379094747}
   m_Layer: 0
   m_Name: BaseSlot (1)
   m_TagString: Untagged
@@ -1715,11 +1727,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30532ced4e68c142abdc95e27389fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  box: {fileID: 1465886394}
-  tree: {fileID: 44351543}
   workerStandPoint: {fileID: 1670740223}
+  slotView: {fileID: 379094747}
   openDuration: 1
-  slotWorldUI: {fileID: 161842916}
 --- !u!4 &379094744
 Transform:
   m_ObjectHideFlags: 0
@@ -1775,6 +1785,21 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &379094747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379094742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2becf990ffdf9fd4e9d43341161e38c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 1465886394}
+  tree: {fileID: 44351544}
+  slotWorldUI: {fileID: 161842916}
 --- !u!1001 &383142762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2031,6 +2056,9 @@ MonoBehaviour:
   workerController: {fileID: 1250307258}
   slotController: {fileID: 768504175}
   customerController: {fileID: 2119874767}
+  currencyManager: {fileID: 2004507066}
+  popupManager: {fileID: 1972039865}
+  topUIController: {fileID: 2103949784}
 --- !u!4 &487768921
 Transform:
   m_ObjectHideFlags: 0
@@ -2657,6 +2685,7 @@ GameObject:
   - component: {fileID: 623516228}
   - component: {fileID: 623516227}
   - component: {fileID: 623516225}
+  - component: {fileID: 623516229}
   m_Layer: 0
   m_Name: BaseSlot (3)
   m_TagString: Untagged
@@ -2676,11 +2705,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30532ced4e68c142abdc95e27389fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  box: {fileID: 1162870578}
-  tree: {fileID: 855535893}
   workerStandPoint: {fileID: 258635534}
+  slotView: {fileID: 623516229}
   openDuration: 1
-  slotWorldUI: {fileID: 1042744310}
 --- !u!4 &623516226
 Transform:
   m_ObjectHideFlags: 0
@@ -2736,6 +2763,21 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &623516229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623516224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2becf990ffdf9fd4e9d43341161e38c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 1162870578}
+  tree: {fileID: 855535894}
+  slotWorldUI: {fileID: 1042744310}
 --- !u!1 &631113666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,10 +3588,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotConfigs:
-  - {fileID: 11400000, guid: 15f61c7f01bc9c04ba8e50483ac3c520, type: 2}
-  - {fileID: 11400000, guid: 72921a4b2604e7f4fa28873f69953f1a, type: 2}
-  - {fileID: 11400000, guid: 151392b8e00e8b2428dc80b36bb3064c, type: 2}
-  - {fileID: 11400000, guid: 2b2d7885505383149b3bcc21d76423b9, type: 2}
+  - {fileID: 11400000, guid: b50c8aa6ef93df048a7e008235ad2214, type: 2}
+  - {fileID: 11400000, guid: 78e77e07776cf4c4ca1fe6da87279572, type: 2}
+  - {fileID: 11400000, guid: d14540b86dee2244f8d22a9069cfd362, type: 2}
+  - {fileID: 11400000, guid: 7e3e85bf16245d04e9bb3b5d7a933512, type: 2}
   slots:
   - {fileID: 1826722578}
   - {fileID: 379094743}
@@ -4063,6 +4105,17 @@ MonoBehaviour:
   - {fileID: 1964294300}
   - {fileID: 212958267}
   - {fileID: 1236782642}
+--- !u!114 &855535894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5206696558566667416, guid: cfcea1bef252c491e8f667d61a07da44, type: 3}
+  m_PrefabInstance: {fileID: 855535887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855535892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b560f241d65704592bdb1fd7208820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &960447169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4760,6 +4813,7 @@ GameObject:
   - component: {fileID: 1067168291}
   - component: {fileID: 1067168290}
   - component: {fileID: 1067168288}
+  - component: {fileID: 1067168292}
   m_Layer: 0
   m_Name: BaseSlot (2)
   m_TagString: Untagged
@@ -4779,11 +4833,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30532ced4e68c142abdc95e27389fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  box: {fileID: 1751255883}
-  tree: {fileID: 1784698184}
   workerStandPoint: {fileID: 1216315231}
+  slotView: {fileID: 1067168292}
   openDuration: 1
-  slotWorldUI: {fileID: 847437601}
 --- !u!4 &1067168289
 Transform:
   m_ObjectHideFlags: 0
@@ -4839,6 +4891,21 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1067168292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067168287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2becf990ffdf9fd4e9d43341161e38c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 1751255883}
+  tree: {fileID: 1784698185}
+  slotWorldUI: {fileID: 847437601}
 --- !u!1 &1112860266
 GameObject:
   m_ObjectHideFlags: 0
@@ -5388,7 +5455,7 @@ MonoBehaviour:
   descText: {fileID: 1312900765}
   costText: {fileID: 9237545}
   buyButton: {fileID: 1451414963}
-  config: {fileID: 11400000, guid: ed8eec1dab284b74c9befe9fbfc06080, type: 2}
+  config: {fileID: 11400000, guid: 4de6bb6ae58f94d4e982f7ec1d004c64, type: 2}
 --- !u!114 &1153582037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5674,7 +5741,7 @@ MonoBehaviour:
   descText: {fileID: 1354468495}
   costText: {fileID: 1989862859}
   buyButton: {fileID: 275599937}
-  config: {fileID: 11400000, guid: 4311421193a73db47aa0d488af28489b, type: 2}
+  config: {fileID: 11400000, guid: 013d3a030269b8d4893a494d27d2d741, type: 2}
 --- !u!114 &1212809787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6308,7 +6375,7 @@ MonoBehaviour:
   descText: {fileID: 1915630321}
   costText: {fileID: 1539711639}
   buyButton: {fileID: 1714056147}
-  config: {fileID: 11400000, guid: c74a30b137985294983fd7950795b0ae, type: 2}
+  config: {fileID: 11400000, guid: e6dddd176f32f1c4db320a1f8b7db997, type: 2}
 --- !u!114 &1333912312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7596,6 +7663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 1585608100}
   canvas: {fileID: 50824707}
+  icon: {fileID: 0}
   levelText: {fileID: 1585608105}
   currentProfitText: {fileID: 1585608104}
   nextProfitText: {fileID: 1585608103}
@@ -8843,6 +8911,17 @@ MonoBehaviour:
   - {fileID: 1357674240}
   - {fileID: 291179477}
   - {fileID: 1117262604}
+--- !u!114 &1784698185 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5206696558566667416, guid: cfcea1bef252c491e8f667d61a07da44, type: 3}
+  m_PrefabInstance: {fileID: 1784698178}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784698183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b560f241d65704592bdb1fd7208820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1822841830
 GameObject:
   m_ObjectHideFlags: 0
@@ -8922,6 +9001,7 @@ GameObject:
   - component: {fileID: 1826722577}
   - component: {fileID: 1826722576}
   - component: {fileID: 1826722578}
+  - component: {fileID: 1826722579}
   m_Layer: 0
   m_Name: BaseSlot
   m_TagString: Untagged
@@ -8996,10 +9076,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30532ced4e68c142abdc95e27389fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  workerStandPoint: {fileID: 1283613899}
+  slotView: {fileID: 1826722579}
+  openDuration: 1
+--- !u!114 &1826722579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826722574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2becf990ffdf9fd4e9d43341161e38c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   box: {fileID: 1888932946}
   tree: {fileID: 1371512898}
-  workerStandPoint: {fileID: 1283613899}
-  openDuration: 1
   slotWorldUI: {fileID: 1371512897}
 --- !u!114 &1847788933 stripped
 MonoBehaviour:
@@ -9059,7 +9152,6 @@ MonoBehaviour:
   - {fileID: 1671291496}
   - {fileID: 186251525}
   - {fileID: 1822841831}
-  customerEndPointDefault: {fileID: 1298625727}
 --- !u!1 &1869325892
 GameObject:
   m_ObjectHideFlags: 0
@@ -9360,7 +9452,7 @@ MonoBehaviour:
   descText: {fileID: 2041706508}
   costText: {fileID: 1218568757}
   buyButton: {fileID: 1939561207}
-  config: {fileID: 11400000, guid: 9e7401af1e206d84db2e73b821096b69, type: 2}
+  config: {fileID: 11400000, guid: 45ce74587ae94be4b824ef539ed9360d, type: 2}
 --- !u!114 &1901393653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10356,7 +10448,7 @@ MonoBehaviour:
   descText: {fileID: 1064616740}
   costText: {fileID: 838968803}
   buyButton: {fileID: 638455983}
-  config: {fileID: 11400000, guid: 51f9346ed39ebd14a9fb71882d474b56, type: 2}
+  config: {fileID: 11400000, guid: 67f3d0c28cda28f4fa7e942c58e5e2c1, type: 2}
 --- !u!4 &1997554266 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4815083280070344826, guid: 22a853b12f2114bc39874a3da3615686, type: 3}
@@ -10496,7 +10588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc787074f8ebd648ad6b70dc7fbaea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topUIController: {fileID: 2103949784}
 --- !u!4 &2004507067
 Transform:
   m_ObjectHideFlags: 0
@@ -10891,7 +10982,7 @@ MonoBehaviour:
   descText: {fileID: 686497094}
   costText: {fileID: 1930066502}
   buyButton: {fileID: 163418636}
-  config: {fileID: 11400000, guid: 23753326db07b524f9a8ec09e9b00b1c, type: 2}
+  config: {fileID: 11400000, guid: afa21e4ebc7ca3a4898b10b5b8f0b01a, type: 2}
 --- !u!114 &2042475969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10987,7 +11078,7 @@ MonoBehaviour:
   descText: {fileID: 579372031}
   costText: {fileID: 754175169}
   buyButton: {fileID: 76031621}
-  config: {fileID: 11400000, guid: 7a4432824c61aea48bb4fc3a33fd161e, type: 2}
+  config: {fileID: 11400000, guid: 99de122c5c80bc340a61352e1037c1f0, type: 2}
 --- !u!114 &2050714003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11152,18 +11243,18 @@ PrefabInstance:
     - target: {fileID: 404363853948783505, guid: 73b8246896ace4b568d8d18c8ea1e2e5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1972039865}
+      objectReference: {fileID: 487768920}
     - target: {fileID: 404363853948783505, guid: 73b8246896ace4b568d8d18c8ea1e2e5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 404363853948783505, guid: 73b8246896ace4b568d8d18c8ea1e2e5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnOpenGlobalUpgrade
+      value: OpenGlobalUpgradePopup
       objectReference: {fileID: 0}
     - target: {fileID: 404363853948783505, guid: 73b8246896ace4b568d8d18c8ea1e2e5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Assembly_CSharp.Assets.Scripts.Ui.Popup.PopupManager, Assembly-CSharp
+      value: Assembly_CSharp.Assets.Scripts.Manager.GameController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 404363853948783505, guid: 73b8246896ace4b568d8d18c8ea1e2e5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

@@ -9,9 +9,8 @@ namespace Assembly_CSharp.Assets.Scripts.Customer
         [SerializeField] private List<Transform> customerPoints;
         [SerializeField] private List<Transform> workerPoints;
         [SerializeField] private List<Transform> customerSpawnPoints;
-        [SerializeField] List<Transform> customerEndPoints;
+        [SerializeField] private List<Transform> customerEndPoints;
         [SerializeField] private List<Transform> workerHomePoints;
-        [SerializeField] private Transform customerEndPointDefault;
 
         private Dictionary<int, BaseCustomer> _occupiedSlots = new();
 
@@ -58,29 +57,19 @@ namespace Assembly_CSharp.Assets.Scripts.Customer
         public bool HasAvailablePoint() =>
             new List<int>(_occupiedSlots.Keys).Exists(k => _occupiedSlots[k] == null);
 
-        // ─── Spawn / Home points theo index ───────────────────────────────────
-        public Vector3 GetCustomerSpawnPoint(int index = 0)
-        {
-            if (index < customerSpawnPoints.Count)
-                return customerSpawnPoints[index].position;
-            return customerSpawnPoints[0].position;
-        }
+        public Vector3 GetCustomerSpawnPoint(int index = 0) =>
+            index < customerSpawnPoints.Count
+                ? customerSpawnPoints[index].position
+                : customerSpawnPoints[0].position;
 
-        public Vector3 GetCustomerEndPoint(int index = 0)
-        {
-            if (index < customerEndPoints.Count)
-                return customerEndPoints[index].position;
-            return customerEndPoints[0].position;
-        }
+        public Vector3 GetCustomerEndPoint(int index = 0) =>
+            index < customerEndPoints.Count
+                ? customerEndPoints[index].position
+                : customerEndPoints[0].position;
 
-        public Vector3 GetWorkerHomePoint(int index = 0)
-        {
-            if (index < workerHomePoints.Count)
-                return workerHomePoints[index].position;
-            return workerHomePoints[0].position;
-        }
-
-        public int GetCustomerSpawnCount() => customerSpawnPoints.Count;
-        public int GetWorkerHomeCount() => workerHomePoints.Count;
+        public Vector3 GetWorkerHomePoint(int index = 0) =>
+            index < workerHomePoints.Count
+                ? workerHomePoints[index].position
+                : workerHomePoints[0].position;
     }
 }

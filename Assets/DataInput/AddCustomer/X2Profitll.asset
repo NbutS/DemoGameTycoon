@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1392c2f474fd4104b9cc335aee2a92c8, type: 3}
+  m_Name: X2Profitll
+  m_EditorClassIdentifier: 
+  _displayName: X2 profit  All
+  _description: X2 profit  All
+  _cost: 100000
+  _actionAsset: {fileID: 11400000, guid: 953ac4ab8f789584bba57f9d10dbc70e, type: 2}
